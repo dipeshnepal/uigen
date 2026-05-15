@@ -1,5 +1,7 @@
 name: Claude Code Azure Automation
 on:
+  workflow_dispatch: # This line enables the manual trigger button
+
   pull_request:
     types: [opened, synchronize]
   issue_comment:

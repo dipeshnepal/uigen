@@ -5,6 +5,11 @@ on:
   issue_comment:
     types: [created]
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 jobs:
   claude_agent:
     runs-on: ubuntu-latest
@@ -14,8 +19,10 @@ jobs:
 
       - name: Run Claude Actions
         uses: anthropics/claude-code-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
         env:
-          CLAUDE_CODE_USE_FOUNDRY: ${{ secrets.CLAUDE_CODE_USE_FOUNDRY }}
+          CLAUDE_CODE_USE_FOUNDRY: "true"
           ANTHROPIC_FOUNDRY_API_KEY: ${{ secrets.ANTHROPIC_FOUNDRY_API_KEY }}
           ANTHROPIC_FOUNDRY_BASE_URL: ${{ secrets.ANTHROPIC_FOUNDRY_BASE_URL }}
           ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ secrets.ANTHROPIC_DEFAULT_SONNET_MODEL }}

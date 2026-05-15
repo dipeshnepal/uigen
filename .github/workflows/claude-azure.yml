@@ -53,7 +53,7 @@ jobs:
               }
             }
         env:
-          CLAUDE_CODE_USE_FOUNDRY: "true"
-          ANTHROPIC_FOUNDRY_API_KEY: ${{ secrets.ANTHROPIC_FOUNDRY_API_KEY }}
+          CLAUDE_CODE_USE_FOUNDRY: 1
+          ANTHROPIC_API_KEY : ${{ secrets.ANTHROPIC_FOUNDRY_API_KEY }}
           ANTHROPIC_FOUNDRY_BASE_URL: ${{ secrets.ANTHROPIC_FOUNDRY_BASE_URL }}
           ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ secrets.ANTHROPIC_DEFAULT_SONNET_MODEL }}

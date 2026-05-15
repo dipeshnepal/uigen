@@ -29,7 +29,7 @@ jobs:
           npm run dev:daemon
 
       - name: Run Claude Actions
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@v1.0.123
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           allowed_tools: "Bash(npm:*),Bash(sqlite3:*),mcp__playwright__browser_snapshot,mcp__playwright__browser_click,..."

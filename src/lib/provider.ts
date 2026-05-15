@@ -1,4 +1,4 @@
-import { anthropic } from "@ai-sdk/anthropic";
+import { anthropic, createAnthropic } from "@ai-sdk/anthropic";
 import {
   LanguageModelV1,
   LanguageModelV1StreamPart,
@@ -508,6 +508,22 @@ export default function App() {
 
 export function getLanguageModel() {
   const apiKey = process.env.ANTHROPIC_API_KEY?.trim();
+  const foundryKey = process.env.ANTHROPIC_FOUNDRY_API_KEY?.trim();
+  const foundryBaseUrl = process.env.ANTHROPIC_FOUNDRY_BASE_URL?.trim();
+  const defaultModel = process.env.ANTHROPIC_DEFAULT_SONNET_MODEL?.trim() ?? MODEL;
+
+  if (foundryKey && foundryBaseUrl) {
+    // Azure Foundry base URL must end with /v1 so the SDK resolves /v1/messages correctly
+    const normalizedBase = foundryBaseUrl.replace(/\/+$/, "");
+    const baseURL = normalizedBase.endsWith("/v1")
+      ? normalizedBase
+      : `${normalizedBase}/v1`;
+    const client = createAnthropic({
+      apiKey: foundryKey,
+      baseURL,
+    });
+    return client(defaultModel);
+  }
 
   if (!apiKey || apiKey === "your-api-key-here") {
     console.log(

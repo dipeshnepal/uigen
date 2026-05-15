@@ -1,6 +1,7 @@
 import { test, expect, vi, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import { MessageList } from "../MessageList";
+import { EmptyState } from "../EmptyState";
 import type { Message } from "ai";
 
 // Mock the MarkdownRenderer component
@@ -12,8 +13,8 @@ afterEach(() => {
   cleanup();
 });
 
-test("MessageList shows empty state when no messages", () => {
-  render(<MessageList messages={[]} />);
+test("EmptyState shows placeholder text", () => {
+  render(<EmptyState />);
 
   expect(
     screen.getByText("Start a conversation to generate React components")
@@ -78,7 +79,7 @@ test("MessageList renders messages with parts", () => {
   render(<MessageList messages={messages} />);
 
   expect(screen.getByText("Creating your component...")).toBeDefined();
-  expect(screen.getByText("str_replace_editor")).toBeDefined();
+  expect(screen.getByText("Editing file")).toBeDefined();
 });
 
 test("MessageList shows content for assistant message with content", () => {

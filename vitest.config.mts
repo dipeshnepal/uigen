@@ -5,6 +5,24 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
-    environment: 'jsdom',
+    projects: [
+      {
+        plugins: [tsconfigPaths(), react()],
+        test: {
+          name: 'node',
+          environment: 'node',
+          include: ['src/lib/__tests__/auth.test.ts'],
+        },
+      },
+      {
+        plugins: [tsconfigPaths(), react()],
+        test: {
+          name: 'jsdom',
+          environment: 'jsdom',
+          include: ['src/**/*.test.{ts,tsx}'],
+          exclude: ['src/lib/__tests__/auth.test.ts'],
+        },
+      },
+    ],
   },
 })
